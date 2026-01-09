@@ -15,13 +15,13 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: "#132b1e", // appCard
           borderTopWidth: 0,
-          height: 70,
+          height: 50,
           position: "absolute",
-          bottom: 16,
+          bottom: 22,
           left: 16,
           right: 16,
           borderRadius: 20,
-          paddingTop: 8,
+          paddingTop: 6,
           paddingBottom: Platform.OS === "ios" ? 14 : 10,
           elevation: 0,
         },
