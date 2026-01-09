@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+📖 Sirah of the Prophet ﷺ – Audio App
+About the App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Sirah of the Prophet ﷺ is a simple and easy-to-use mobile application designed to help users listen to the life story of Prophet Muhammad ﷺ in a clear, organized, and respectful way.
 
-## Get started
+The app focuses on audio listening, allowing users to follow the Sirah episode by episode, just like a lecture series. It is not a music streaming app and does not play files from the user’s device. All audio content is provided and organized within the app.
 
-1. Install dependencies
+🎧 Key Features
 
-   ```bash
-   npm install
-   ```
+Audio Episodes List
+Listen to Sirah lessons presented in a simple list format for easy navigation.
 
-2. Start the app
+Clean Audio Player
+Play, pause, seek forward/backward, and track progress while listening.
 
-   ```bash
-   npx expo start
-   ```
+Listening Speed Control
+Adjust playback speed (0.75×, 1×, 1.25×, 1.5×) to match your preference.
 
-In the output, you'll find options to open the app in a
+Light & Dark Mode
+Choose between light mode, dark mode, or system default.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Language Support
+Select your preferred language (depending on available content).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Resume Listening
+Continue listening from where you left off.
 
-## Get a fresh project
+Simple & Distraction-Free Design
+Minimal interface focused on learning and reflection.
 
-When you're ready, run:
+⚙️ Settings & Customization
 
-```bash
-npm run reset-project
-```
+Users can customize their experience through the Settings page:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Change listening speed
 
-## Learn more
+Switch between light and dark themes
 
-To learn more about developing your project with Expo, look at the following resources:
+Select language
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Rate the app and share feedback
 
-## Join the community
+📱 Who This App Is For
 
-Join our community of developers creating universal apps.
+Anyone who wants to learn the Sirah of the Prophet ﷺ
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Users who prefer audio learning
+
+Students, families, and listeners of all ages
+
+Those seeking a calm, respectful, and focused listening experience
+
+🛠 Technology Overview (Optional)
+
+Built with React Native & Expo
+
+Uses Supabase for content management
+
+Styled with NativeWind
+
+Audio playback powered by expo-av
+
+🤲 Purpose
+
+This app aims to make the Sirah of the Prophet ﷺ easily accessible, allowing users to listen, learn, and reflect anytime and anywhere.
