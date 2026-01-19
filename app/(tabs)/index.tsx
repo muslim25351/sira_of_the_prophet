@@ -49,64 +49,25 @@ import {
   View,
 } from "react-native";
 
-/**
- * Dummy lecture data
- * Later this will come from Supabase
- */
-const lectures = [
-  {
-    id: "1",
-    title: "The Early Years in Makkah",
-    description: "Life in the desert and noble upbringing",
-    duration: "45 mins",
-    playing: true,
-  },
-  {
-    id: "2",
-    title: "The First Revelation",
-    description: "Cave Hira and the beginning of...",
-    duration: "38 mins",
-    playing: false,
-  },
-  {
-    id: "3",
-    title: "Public Preaching",
-    description: "Calling the people of Makkah to Islam...",
-    duration: "42 mins",
-    playing: false,
-  },
-  {
-    id: "4",
-    title: "The Migration to Abyssinia",
-    description: "Seeking refuge from persecution in a just land",
-    duration: "50 mins",
-    playing: false,
-  },
-  {
-    id: "5",
-    title: "The Year of Sorrow",
-    description: "The loss of Khadijah (RA) and Abu Talib",
-    duration: "55 mins",
-    playing: false,
-  },
-  {
-    id: "6",
-    title: "Isra and Mi'raj",
-    description: "The Night Journey and Ascension",
-    duration: "60 mins",
-    playing: false,
-  },
-  {
-    id: "7",
-    title: "Hijrah to Medina",
-    description:
-      "The migration to Medina and establishment of the Muslim community",
-    duration: "60 mins",
-    playing: false,
-  },
-];
+import { Audio } from "expo-av";
+import { lectures } from "@/lib/siraData";
+import { useState } from "react";
 
 export default function HomeScreen() {
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+  const play = async (audioFile: any) => {
+    if (sound) {
+      await sound.unloadAsync();
+    }
+
+    const { sound: newSound } = await Audio.Sound.createAsync(audioFile, {
+      shouldPlay: true,
+    });
+
+    setSound(newSound);
+  };
+
   return (
     <View className="flex-1 bg-[#0f1f17]">
       <StatusBar barStyle="light-content" />
@@ -158,6 +119,7 @@ export default function HomeScreen() {
               className={`w-10 h-10 rounded-full items-center justify-center ${
                 item.playing ? "bg-green-500" : "bg-[#1f3a2a]"
               }`}
+              onPress={() => play(item.audio)}
             >
               <Ionicons
                 name={item.playing ? "pause" : "play"}
