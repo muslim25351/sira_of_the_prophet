@@ -49,23 +49,51 @@ import {
   View,
 } from "react-native";
 
-import { Audio } from "expo-av";
 import { lectures } from "@/lib/siraData";
-import { useState } from "react";
+import { Audio } from "expo-av";
+import { useEffect, useRef, useState } from "react";
 
 export default function HomeScreen() {
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [playingId, setPlayingId] = useState<string | null>(null);
+  const soundRef = useRef<Audio.Sound | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const play = async (audioFile: any) => {
-    if (sound) {
-      await sound.unloadAsync();
+  useEffect(() => {
+    return () => {
+      soundRef.current?.unloadAsync();
+    };
+  }, []);
+
+  const togglePlay = async (item: { id: string; audio: any }) => {
+    try {
+      // Same item → toggle pause / resume
+      if (soundRef.current && playingId === item.id) {
+        if (isPaused) {
+          await soundRef.current.playAsync(); // resume
+          setIsPaused(false);
+        } else {
+          await soundRef.current.pauseAsync(); // pause
+          setIsPaused(true);
+        }
+        return;
+      }
+
+      // Different item → stop old audio
+      if (soundRef.current) {
+        await soundRef.current.stopAsync();
+        await soundRef.current.unloadAsync();
+      }
+
+      // Load & play new audio
+      const { sound } = await Audio.Sound.createAsync(item.audio);
+      soundRef.current = sound;
+
+      await sound.playAsync();
+      setPlayingId(item.id);
+      setIsPaused(false);
+    } catch (err) {
+      console.log("Audio error:", err);
     }
-
-    const { sound: newSound } = await Audio.Sound.createAsync(audioFile, {
-      shouldPlay: true,
-    });
-
-    setSound(newSound);
   };
 
   return (
@@ -117,12 +145,12 @@ export default function HomeScreen() {
             {/* PLAY / PAUSE BUTTON */}
             <TouchableOpacity
               className={`w-10 h-10 rounded-full items-center justify-center ${
-                item.playing ? "bg-green-500" : "bg-[#1f3a2a]"
+                item.id === playingId ? "bg-green-500" : "bg-[#1f3a2a]"
               }`}
-              onPress={() => play(item.audio)}
+              onPress={() => togglePlay(item)}
             >
               <Ionicons
-                name={item.playing ? "pause" : "play"}
+                name={item.id === playingId && !isPaused ? "pause" : "play"}
                 size={18}
                 color="white"
               />
@@ -145,8 +173,17 @@ export default function HomeScreen() {
         </View>
 
         {/* MINI PLAYER BUTTON */}
-        <TouchableOpacity className="bg-green-500 w-10 h-10 rounded-full items-center justify-center">
-          <Ionicons name="pause" size={18} color="black" />
+        <TouchableOpacity
+          className="bg-green-500 w-10 h-10 rounded-full items-center justify-center"
+          onPress={() =>
+            togglePlay(lectures.find((lecture) => lecture.id === playingId)!)
+          }
+        >
+          <Ionicons
+            name={isPaused ? "play" : "pause"}
+            size={18}
+            color="black"
+          />
         </TouchableOpacity>
       </View>
     </View>
